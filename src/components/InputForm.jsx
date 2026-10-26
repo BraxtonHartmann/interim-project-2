@@ -9,21 +9,24 @@ function InputForm(props) {
     const [imageUrl, setImageUrl] = useState("");
     const { touched, errors, fieldProps, validate, resetValidation } = useReviewValidation({ location, rating, imageUrl });
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
         if (!validate()) return;
-
+    
         const newReview = {
             location: location.trim(),
             rating: Number(rating),
             review: review.trim(),
             imageUrl: imageUrl.trim(),
         };
-
-        props.onAddReview(newReview);
-
-        console.log(newReview);
-
+    
+        try {
+            await props.onAddReview(newReview);
+        } catch {
+            alert("Could not save your review. Please try again.");
+            return;
+        }
+    
         setLocation("");
         setRating("");
         setReview("");

@@ -1,12 +1,13 @@
 import ReviewItem from "./ReviewItem";
+import "./ReviewList.css";
 
 function ReviewList(props) {
     if (props.items.length === 0) {
-        return <p>No reviews yet. Add one above!</p>;
+        return <p className="reviews-empty">No reviews yet. Add one above!</p>;
     }
 
     return (
-        <ul>
+        <ul className="review-list">
             {props.items.map(item => (
                 <ReviewItem
                     key={item.id}
